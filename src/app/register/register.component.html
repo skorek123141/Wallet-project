@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-sm-6"></div>
+  <div class="col-sm-6">
+    <h2>Rejestracja</h2>
+      <form name="form" (ngSubmit)="register()" #f="ngForm">
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+        <label for="username">Użytkownik</label>
+        <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel"
+               required/>
+        <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+      </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel"
+                 required/>
+          <div *ngIf="f.submitted && !email.valid" class="help-block">Password is required</div>
+        </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+        <label for="password">Hasło</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel"
+               required/>
+        <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+      </div>
+      <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">Zarejestruj</button>
+        <a [routerLink]="['/login']" class="btn btn-link">Wróc</a>
+      </div>
+    </form>
+  </div>
+</div>
+

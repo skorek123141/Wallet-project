@@ -4,16 +4,16 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
-import { AlertComponent } from './directives/alert/alert.component';
 import { RegisterComponent } from './register/register.component';
-import {AuthGuard} from './guards/auth.guard';
-import {AuthenticationService} from './service/authentication.service';
 import {UserService} from './service/user.service';
 import {FormsModule} from '@angular/forms';
-import { routing } from './app.routing';
-import {AlertService} from './service';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {routing} from './app.routing';
+import {AlertComponent} from './directives/alert';
+import {AlertService, AuthenticationService} from './service';
+import {JwtInterceptor} from './service/jwt-interpretor';
+import {AuthGuard} from './Guard/Auth.guard';
 
 
 @NgModule({
@@ -29,12 +29,18 @@ import {AlertService} from './service';
     HomeComponent,
     LoginComponent,
     RegisterComponent
+
   ],
   providers: [
     AuthGuard,
     AlertService,
     AuthenticationService,
-    UserService,   
+    UserService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
